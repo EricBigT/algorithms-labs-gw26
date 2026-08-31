@@ -7,8 +7,23 @@
 # and so on...
 
 def fibonacci_threeway(n):
-    raise NotImplementedError("TODO: replace this line in fibonacci_threeway.py with your solution!")
-
+    global call_count
+    if n <= 0:
+            call_count = call_count + 1
+            return 0
+    if n == 1:
+            call_count = call_count + 1
+            return 1
+    if n == 2:
+                call_count = call_count + 1
+                return 1
+    if n == 3:
+                call_count = call_count + 1
+                return 1
+    if n not in cache:
+            call_count = call_count + 1
+            cache[n] = fibonacci_threeway(n-1) + fibonacci_threeway(n-2) + fibonacci_threeway(n-3)
+    return cache[n]
 def is_positive_integer(text):
     try:
         return int(text) > 0
@@ -18,6 +33,8 @@ def is_positive_integer(text):
 
 if __name__ == "__main__":
     import time
+    cache = {}
+    call_count = 0
     while True:
         text = input("Please enter a positive integer: ")
         if not is_positive_integer(text):

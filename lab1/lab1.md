@@ -12,11 +12,11 @@ The Fibonacci sequence is a sequence of numbers where:
 
 ```
 TODO: Answer the following questions:
-fibonacci(5) = 
-fibonacci(6) = 
-fibonacci(7) = 
-fibonacci(8) = 
-fibonacci(9) = 
+fibonacci(5) = 5
+fibonacci(6) = 8
+fibonacci(7) = 13
+fibonacci(8) = 21
+fibonacci(9) = 34
 ```
 
 ## Basic implementation
@@ -39,15 +39,15 @@ The code version also tells you how much time does it take to complete each calc
 ```
 TODO:
 1. Explain what the code above is doing.
-A: 
+A: The code above is a recursive Fibonacci function that checks against the base cases of 0 and 1 to ensure the program ends, and then branches out to return the sum of the last two numbers n.
 2. What happens if we remove the "if ... return ..." and only keep the last line?
-A: 
+A: Then the function risks running infinitely because there are no base cases
 3. What is fibonacci(20)? how much time did it take to calculate that?
-A: 
+A: fibonacci(20) = 6765 and took about 0.0018 seconds to calculate
 4. What is fibonacci(30)? how much time did it take to calculate that?
-A: 
+A: fibonacci(30) = 832040 and took about 0.14 seconds to calculate
 5. How much time did it take you to calculate fibonacci(40)? (this might take a while...)
-A: 
+A: It took about 20 seconds to calculate fibonacci(40)
 ```
 
 ## How many function calls?
@@ -55,12 +55,12 @@ A:
 Modify ``fibonacci_counting.py`` so that it does the same calculation as ``fibonacci.py``, but it also counts how many times the function ``fibonacci(n)`` had to be called. Then answer the following:
 ```
 TODO:
-1. How many function calls does fibonacci(1) take?
-2. How many function calls does fibonacci(5) take?
-3. How many function calls does fibonacci(10) take?
-4. Why is it so slow? Where does the complexity come from?
-5. Is this O(n)? is this O(2^n)? Why?
-6. Is this Ω(n)? Why?
+1. How many function calls does fibonacci(1) take? 1
+2. How many function calls does fibonacci(5) take? 15
+3. How many function calls does fibonacci(10) take? 177
+4. Why is it so slow? Where does the complexity come from? The complexity comes from the fact that the function is called recursively and each call generates two more calls, leading to exponential growth.
+5. Is this O(n)? is this O(2^n)? Why? This is O(2^n) because the number of function calls grows esponentially with n, leading to a sort of binary tree each time a new call is made.
+6. Is this Ω(n)? Why? No, this is not O(n) becuase each call generates two more calls, leading to exponential growth
 ```
 
 ## Memoization Optimization
@@ -68,12 +68,12 @@ TODO:
 Take a look at ``fibonacci_counting.py``, where memoization is used.
 ```
 TODO:
-1. How is this one different from the previous one?
-2. How much time does it take to calculate fibonacci(30)?
-3. Why is it often faster?
-4. Also modify this file to count: how many times the function had to be called for fibonacci(30)?
-5. Is this O(n)? is this O(2^n)? Why?
-6. Is this Ω(n)? is this Ω(2^n)? Why?
+1. How is this one different from the previous one? This one is different because it utilizes the cache
+2. How much time does it take to calculate fibonacci(30)? 0.0000292 seconds
+3. Why is it often faster? Because it stores the values in the cache to allow for easier access back to those values
+4. Also modify this file to count: how many times the function had to be called for fibonacci(30)? 32
+5. Is this O(n)? is this O(2^n)? Why? This is O(n) because the cache provides direct access to the values from each call
+6. Is this Ω(n)? is this Ω(2^n)? Why? This is Ω(n) because the cache provides direct access to the values from each call
 ```
 
 ## Extension: Staircase Problem
