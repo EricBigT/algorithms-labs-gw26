@@ -98,15 +98,21 @@ have a different height, creating imbalances higher up.
 
 **TODO 1.1:** Briefly recall the three deletion cases from Lab 3/4:
 - What happens when the target node has 0 children?
+-- You simply remove the node 
 - What happens when the target node has 1 child?
+-- You replace the node with its child
 - What happens when the target node has 2 children, and why is the in-order successor used?
+-- In this case you would replace the node with its in-order successor, then delete the successor node. You use the in-order successor because it will maintain the BST invariant property.
 
 ### 1.2 Short answer: Height change after deletion
 
 **TODO 1.2:** When you delete a leaf node from an AVL tree:
 - Does the leaf's parent's height change? By how much?
+-- The parent's height can change if the parent had another child of equal or greater height by at most 1.
 - Can the grandparent's height change?
+-- Yes, if the parent's height changed, the grandparent's height will change to match.
 - Can the imbalance propagate to the root?
+-- Yes, deletion in an AVL tree can cascade all the way to the root.
 
 ---
 
@@ -140,8 +146,8 @@ Start with this AVL tree:
 | Step | Action | Tree state | Unbalanced node | BF | Signature | Rotation | Notes |
 |---|---|---|---|---|---|---|---|
 | 1 | Delete 40 | 40 is removed (leaf) | - | - | - | - | Tree now has 30 root, 20 left, nothing right |
-| 2 | Rebalance from 30 | TODO | TODO | TODO | TODO | TODO | TODO |
-| 3 | After rotation | TODO | TODO | TODO | - | - | Final state |
+| 2 | Rebalance from 30 | 30 root, 20 left, 10 left | 30 is now unbalanced with BF=2 | LL | Right rotation at 30 | 30 becomes right child of 20 |
+| 3 | After rotation | 20 root, 10 left, 30 right | 20 has BF=0, 10 has BF=0, 30 has BF=0 | - | - | Tree is now balanced |
 
 ### 2.2 Trace: Double rotation after deletion
 
@@ -166,7 +172,7 @@ Start with this AVL tree:
 
 | Step | Action | Current node | BF before | Signature | Rotation applied | BF after |
 |---|---|---|---|---|---|---|
-| 1 | Delete 40 | 30 | TODO | TODO | TODO | TODO |
+| 1 | Delete 40 | 30 | 40 is removed (leaf) | 30 now has BF=-1 | RR | Left rotation at 30 | 30 becomes left child of 40's parent (which is none, so 20 becomes root) |
 | 2 | Verify final | - | - | - | - | - |
 
 ### 2.3 Trace: Two-child deletion with rebalancing
@@ -194,8 +200,8 @@ Trace the rebalancing:
 
 | Step | Current node | BF | Imbalanced? | Violation | Rotation applied |
 |---|---|---|---|---|---|
-| 1 | (after replacing 30 with 40) | TODO | TODO | TODO | TODO |
-| 2 | (if needed, continue up) | TODO | TODO | TODO | TODO |
+| 1 | (after replacing 30 with 40) | 40 is now in place of 30 | 40 has BF=0 | No | - | - |
+| 2 | (if needed, continue up) | 20 is now in place of 30 | 20 has BF=0 | No | - | - |
 
 ---
 
@@ -245,7 +251,9 @@ measuring the number of rotations triggered by each operation.
 
 1. Why can a single deletion trigger multiple rotations at different ancestors,
    whereas a single insertion triggers at most one rotation?
+   -- This is because deletion can cascade up the tree to the root, potentially triggering multiple rotations 
 2. What property of rotations ensures that insertion stops after one fix?
+   -- The property is that insertion only affect the path from the inserted node to the root, so at most one rotation is needed to restore balance
 3. Does a deletion ever need to rebalance higher than the root? Explain.
 
 ### 4.2 Short answer: Real-world implications
