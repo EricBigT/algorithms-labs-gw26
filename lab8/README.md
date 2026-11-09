@@ -123,11 +123,11 @@ newly assigned parents.
 | Vertex removed | Queue afterward | New parent assignments |
 |---|---|---|
 | 0 | `[1, 2]` | `parent[1] = 0`, `parent[2] = 0` |
-| 1 | TODO | TODO |
-| 2 | TODO | TODO |
-| 3 | TODO | TODO |
+| 1 | `[2, 3]` | `parent[3] = 1` |
+| 2 | `[3, 4]` | `parent[4] = 2` |
+| 3 | `[4]` | None |
 
-Why does processing `2` leave `parent[4]` unchanged? Answer in one sentence.
+Why does processing `2` leave `parent[4]` unchanged? Answer in one sentence. Because node 4 hs already been visited.
 
 ### 2.2 Implementation
 
