@@ -89,8 +89,8 @@ order, are `[0, 1, 1, 2, 1]`. Visit neighbors in the order shown.
 | Vertex removed | Queue afterward | In-degree of `D` |
 |---|---|---|
 | A | `[B, C]` | 2 |
-| B | TODO | TODO |
-| C | TODO | TODO |
+| B | `[C]` | 1 |
+| C | `[D]` | 0 |
 
 Now add the edge `E -> B`. Which vertices reach the output before the
 algorithm stops? What does the function return?
@@ -131,6 +131,11 @@ processed before that vertex, so one pass over the edges is enough.
 **TODO 1.3:** Give the time and extra-space bounds for Kahn's algorithm in
 terms of `V` vertices and `E` edges, excluding storage for the input graph.
 Briefly explain how often each vertex enters the queue and each edge is checked.
+
+The time and space bounds for Kahn's algorithm are O(V + E) and O(V). Counting
+in-degrees and removing vertices together examine every edge once, while each
+vertex enters the queue at most once. The queue, in-degrees, and output list
+each use `O(V)` extra space.
 
 ---
 
@@ -248,9 +253,9 @@ calls, then decide whether the edge is accepted.
 
 | Edge | Roots | Accept? | Total weight |
 |---|---|---|---|
-| `(B, D): 4` | TODO | TODO | TODO |
-| `(A, C): 5` | TODO | TODO | TODO |
-| `(D, E): 6` | TODO | TODO | TODO |
+| `(B, D): 4` | `A, C` | Yes | 10 |
+| `(A, C): 5` | `A, A` | No | 10 |
+| `(D, E): 6` | `A, E` | Yes | 16 |
 
 After checking `(B, D)`, what is `parent[D]`? Explain why a rejected edge
 can still change the parent array. Does Kruskal examine `(C, E): 7`?
@@ -261,6 +266,12 @@ can still change the parent array. Does Kruskal examine `(C, E): 7`?
 including initialization and sorting. You may use the lecture's amortized
 bound of `O(α(V))` per union-find operation, where `α` grows extremely slowly.
 Which step dominates? What changes if the edges are already sorted?
+
+Kruskal's total time bound is O(E log E) while initialization takes O(V) time.
+The O(E log E) bound comes from O(V) initialization, O(E log E) sorting, and
+O(E α(V)) amortized union-find operations. Sorting dominates because
+α(V) grows extremely slowly. If the edges are already sorted, the total time
+becomes O(E α(V)).
 
 ---
 

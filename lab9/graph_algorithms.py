@@ -19,9 +19,28 @@ def topological_sort(graph):
     queue = deque()
     order = []
 
-    # TODO 1.2: count incoming edges, process ready vertices, and check for a cycle
-    raise NotImplementedError("Complete topological_sort")
+    # Count incoming edges for every vertex
+    for u in range(n):
+        for v in graph[u]:
+            indegree[v] += 1
 
+    # Queue the initial sources in increasing order
+    for u in range(n):
+        if indegree[u] == 0:
+            queue.append(u)
+
+    # Remove ready vertices and release their neighbors
+    while queue:
+        u = queue.popleft()
+        order.append(u)
+        for v in graph[u]:
+            indegree[v] -= 1
+            if indegree[v] == 0:
+                queue.append(v)
+
+    # Any vertex left out is on, or blocked by, a cycle
+    if len(order) != n:
+        return None
     return order
 
 
@@ -34,16 +53,38 @@ class DisjointSet:
 
     def find(self, x):
         """Return x's root and compress the path to it."""
-        # TODO 2.1A: update each parent on the search path to the root
-        raise NotImplementedError("Complete find")
+        # Walk up to the root.
+        root = x
+        while self.parent[root] != root:
+            root = self.parent[root]
+
+        # Path compression: point every vertex on the path directly at the root.
+        while self.parent[x] != root:
+            next_x = self.parent[x]
+            self.parent[x] = root
+            x = next_x
+
+        return root
 
     def union(self, x, y):
         """Merge different components and return True, or return False if joined.
 
         On equal ranks, attach root_y under root_x and increment rank[root_x].
         """
-        # TODO 2.1B: find the roots and merge by rank
-        raise NotImplementedError("Complete union")
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x == root_y:
+            return False
+
+        # Union by rank: attach the shorter tree under the taller one.
+        if self.rank[root_x] < self.rank[root_y]:
+            self.parent[root_x] = root_y
+        elif self.rank[root_x] > self.rank[root_y]:
+            self.parent[root_y] = root_x
+        else:
+            self.parent[root_y] = root_x
+            self.rank[root_x] += 1
+        return True
 
 
 def kruskal(n, edges):
@@ -58,8 +99,13 @@ def kruskal(n, edges):
     chosen = []
     total = 0
 
-    # TODO 2.1C: use union to accept edges and stop once a spanning tree is complete
-    raise NotImplementedError("Complete kruskal")
+    for u, v, weight in sorted_edges:
+        # union only merges (and returns True) when u and v are in different components.
+        if sets.union(u, v):
+            chosen.append((u, v, weight))
+            total += weight
+            if len(chosen) == n - 1:
+                break
 
     return chosen, total
 
