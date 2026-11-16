@@ -117,15 +117,16 @@ using its two endpoint labels.
 
 | Vertex removed | Edge added | `key[D]` | `key[E]` |
 |---|---|---|---|
-| `B` | TODO | TODO | TODO |
-| `C` | TODO | TODO | TODO |
-| `D` | TODO | TODO | TODO |
+| `B` | A--B | 4 | inf |
+| `C` | B--C | 4 | 6 |
+| `D` | B--D | 4 | 6 |
 
 1. Which vertex becomes `C`'s parent, and what causes the change? 
-
+  Vertex B becomes C's parent because the edge B--C has a weight of 1, which is less than the previous key value for C
 
 2. After removing `E`, what are the tree's four edges and total weight? 
-
+  
+  The tree's four edges are A--B, B--C, B--D, and C--E and the total weight is 2 + 1 + 4 + 6 = 13
 
 
 ### 1.2 Implementation
