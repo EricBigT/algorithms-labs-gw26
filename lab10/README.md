@@ -200,12 +200,13 @@ after each check, including checks that leave them unchanged.
 
 | Edge checked | Candidate | Distance of `v` | Parent of `v` |
 |---|---|---|---|
-| `B -> C` | TODO | TODO | TODO |
-| `C -> D` | TODO | TODO | TODO |
-| `C -> E` | TODO | TODO | TODO |
-| `D -> E` | TODO | TODO | TODO |
+| `B -> C` | 3 | 3 | A |
+| `C -> D` | 8 | 6 | B |
+| `C -> E` | 9 | 9 | C |
+| `D -> E` | 13 | 9 | C |
 
 Give the final distance array and the shortest path from `A` to `E`:
+  The final distance array is [0, 2, 3, 6, 9] and the shortest path from A to E is A -> B -> C -> E.
 
  **TODO**
 
@@ -222,13 +223,14 @@ undirected graphs, including graphs with unreachable vertices.
 
 1. Change only the weight of `A--C` to `2.5`. Starting from `A`, what is
    `C`'s parent under each algorithm? What quantity does each algorithm
-   minimize? 
+   minimize? C's parent under each algorithm is B for Prim's and A for Dijkstra's. Prim's algorithm minimizes the total weight of the edges in the minimum spanning tree, while Dijkstra's algorithm minimizes the shortest distance from the source vertex to each vertex.
 
 
 2. Consider the directed edges `S -> A: 2`, `S -> B: 5`, and `B -> A: -4`.
    Starting from `S`, which distance does Dijkstra finalize too early?
    Give the actual shortest distance and explain why the negative edge
    causes a problem.
+    The actual shortest distance from S to A is 1 (S -> B -> A), but Dijkstra's algorithm will finalize the distance to A as 2 (S -> A) because it doesn't consider the negative edge. This is a problem because Dijkstra's algorithm assumes non-negative weights and cannot handle negative edges correctly.
 
 
 3. Let `V` and `E` be the numbers of vertices and edges. For the provided
@@ -238,6 +240,7 @@ undirected graphs, including graphs with unreachable vertices.
    auxiliary space bounds. Exclude the input graph from space. What is
    the time bound if finding the minimum instead scans an unsorted array
    of vertices?
+   For each algorithms, there are V removals and up to E decreases. Therefore, the worst-case time complexity for both Prim's and Dijkstra's algorithms is O(V log V + E log V) = O((V + E) log V). The auxiliary space complexity is O(V) for the distance/parent arrays and the priority queue. If finding the minimum instead scans an unsorted array of vertices, the time complexity would be O(V^2 + E) = O(V^2) in the worst case.
 
 
 ---
